@@ -14,6 +14,8 @@
 		30AB8D7B1AB86D5C00DFE35B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30AB8D7A1AB86D5C00DFE35B /* Images.xcassets */; };
 		30AB8D7E1AB86D5C00DFE35B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30AB8D7C1AB86D5C00DFE35B /* LaunchScreen.xib */; };
 		30AB8D8A1AB86D5D00DFE35B /* MBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AB8D891AB86D5D00DFE35B /* MBTests.m */; };
+		30AB8D981AB86DFE00DFE35B /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AB8D951AB86DFE00DFE35B /* GCDAsyncSocket.m */; };
+		30AB8D991AB86DFE00DFE35B /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AB8D971AB86DFE00DFE35B /* GCDAsyncUdpSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,10 @@
 		30AB8D831AB86D5D00DFE35B /* MBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30AB8D881AB86D5D00DFE35B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30AB8D891AB86D5D00DFE35B /* MBTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBTests.m; sourceTree = "<group>"; };
+		30AB8D941AB86DFE00DFE35B /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		30AB8D951AB86DFE00DFE35B /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		30AB8D961AB86DFE00DFE35B /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		30AB8D971AB86DFE00DFE35B /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,7 @@
 				30AB8D741AB86D5C00DFE35B /* ViewController.h */,
 				30AB8D751AB86D5C00DFE35B /* ViewController.m */,
 				30AB8D771AB86D5C00DFE35B /* Main.storyboard */,
+				30AB8D931AB86D8C00DFE35B /* Socket */,
 				30AB8D7A1AB86D5C00DFE35B /* Images.xcassets */,
 				30AB8D7C1AB86D5C00DFE35B /* LaunchScreen.xib */,
 				30AB8D6D1AB86D5C00DFE35B /* Supporting Files */,
@@ -117,6 +124,17 @@
 				30AB8D881AB86D5D00DFE35B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		30AB8D931AB86D8C00DFE35B /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				30AB8D941AB86DFE00DFE35B /* GCDAsyncSocket.h */,
+				30AB8D951AB86DFE00DFE35B /* GCDAsyncSocket.m */,
+				30AB8D961AB86DFE00DFE35B /* GCDAsyncUdpSocket.h */,
+				30AB8D971AB86DFE00DFE35B /* GCDAsyncUdpSocket.m */,
+			);
+			name = Socket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +237,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30AB8D981AB86DFE00DFE35B /* GCDAsyncSocket.m in Sources */,
+				30AB8D991AB86DFE00DFE35B /* GCDAsyncUdpSocket.m in Sources */,
 				30AB8D761AB86D5C00DFE35B /* ViewController.m in Sources */,
 				30AB8D731AB86D5C00DFE35B /* AppDelegate.m in Sources */,
 				30AB8D701AB86D5C00DFE35B /* main.m in Sources */,
