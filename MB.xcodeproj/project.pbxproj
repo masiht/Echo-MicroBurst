@@ -92,9 +92,9 @@
 				30AB8D741AB86D5C00DFE35B /* ViewController.h */,
 				30AB8D751AB86D5C00DFE35B /* ViewController.m */,
 				30AB8D771AB86D5C00DFE35B /* Main.storyboard */,
-				30AB8D931AB86D8C00DFE35B /* Socket */,
 				30AB8D7A1AB86D5C00DFE35B /* Images.xcassets */,
 				30AB8D7C1AB86D5C00DFE35B /* LaunchScreen.xib */,
+				30AB8D931AB86D8C00DFE35B /* Socket */,
 				30AB8D6D1AB86D5C00DFE35B /* Supporting Files */,
 			);
 			path = MB;

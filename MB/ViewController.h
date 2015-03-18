@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GCDAsyncSocket.h"
+#import "GCDAsyncUdpSocket.h"
 
-@interface ViewController : UIViewController
+typedef NS_ENUM(NSUInteger, testType) {
+  testTypeUpload,
+  testTypeDownload
+};
 
+@interface ViewController : UIViewController <GCDAsyncSocketDelegate, GCDAsyncUdpSocketDelegate>
 
 @end
 
