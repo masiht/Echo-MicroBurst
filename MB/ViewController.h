@@ -17,5 +17,7 @@ typedef NS_ENUM(NSUInteger, testType) {
 
 @interface ViewController : UIViewController <GCDAsyncSocketDelegate, GCDAsyncUdpSocketDelegate>
 
+-(IBAction)beginTest:(id)sender;
+
 @end
 

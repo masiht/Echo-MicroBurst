@@ -29,17 +29,27 @@
     NSMutableArray *recvTimeStamps;
     NSMutableArray *recvData;
     NSDate *startTime;
+    double speed;
+    
 }
 
 @end
 
 @implementation ViewController
 
+-(IBAction)beginTest:(id)sender {
+    currentTest = testTypeDownload;
+    [self setupDownloadTest];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
     
-    isWaitingForResults = NO;
+//    Upload test is WIP on server side
+    /*isWaitingForResults = NO;
     currentTest = testTypeDownload;
     
     if (currentTest == testTypeUpload) {
@@ -49,7 +59,7 @@
     
     if (currentTest == testTypeDownload) {
         [self setupDownloadTest];
-    }
+    }*/
     
 }
 
@@ -177,11 +187,13 @@
     if (numberOfReceivedPackets == numberOfTestPackets) {
         
         double interval  = [[NSDate date] timeIntervalSinceDate:startTime];
-        double speed = ((numberOfTestPackets - 1) * sizeOfTestPackets)/ interval;
+        speed = ((numberOfTestPackets - 1) * sizeOfTestPackets)/ interval;
         
         
         NSLog(@"received all download packets in %f seconds", interval);
         NSLog(@"download speed test result = %.2f KB/s, or %.2f MB/s", speed / 1000.0, speed / 1000000.0);
+        
+        [self performSegueWithIdentifier:@"ShowResults" sender:self];
         
     }
     
@@ -199,5 +211,11 @@
     NSLog(@"Connected to %@", address);
 }
 
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    [segue.destinationViewController performSelector:@selector(setSpeed:) withObject:[NSNumber numberWithDouble:speed]];
+}
 
 @end

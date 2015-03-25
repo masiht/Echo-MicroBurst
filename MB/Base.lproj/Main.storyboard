@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +16,94 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLT-FH-DZC">
+                                <rect key="frame" x="250" y="360" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="JFZ-Mq-uxZ"/>
+                                    <constraint firstAttribute="width" constant="100" id="ZQf-Eb-ySj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title=" Begin Test " backgroundImage="button.jpg">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="beginTest:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ps2-8O-KAX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="kLT-FH-DZC" secondAttribute="bottom" constant="200" id="2Yw-wI-nyx"/>
+                            <constraint firstAttribute="centerX" secondItem="kLT-FH-DZC" secondAttribute="centerX" id="3XK-hg-HDp"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <segue destination="dug-t8-2yf" kind="presentation" identifier="ShowResults" modalTransitionStyle="crossDissolve" id="BoI-RT-ibL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Results View Controller-->
+        <scene sceneID="86T-Id-1WW">
+            <objects>
+                <viewController id="dug-t8-2yf" customClass="ResultsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fA7-Hb-quc"/>
+                        <viewControllerLayoutGuide type="bottom" id="unO-s7-Cx5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hix-7q-oaj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Download Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXj-fL-pAq">
+                                <rect key="frame" x="46" y="100" width="132" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbM-fN-aPF">
+                                <rect key="frame" x="438" y="100" width="111" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WIP!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xb3-EY-sOm">
+                                <rect key="frame" x="94" y="152" width="36" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faS-TE-hbr">
+                                <rect key="frame" x="472" y="152" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xb3-EY-sOm" firstAttribute="centerX" secondItem="vXj-fL-pAq" secondAttribute="centerX" id="HjX-uX-GQL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tbM-fN-aPF" secondAttribute="trailing" constant="35" id="Pjb-PK-Rut"/>
+                            <constraint firstItem="faS-TE-hbr" firstAttribute="top" secondItem="tbM-fN-aPF" secondAttribute="bottom" constant="31" id="R8A-Q8-4CS"/>
+                            <constraint firstItem="vXj-fL-pAq" firstAttribute="top" secondItem="fA7-Hb-quc" secondAttribute="bottom" constant="80" id="WBE-ID-Qae"/>
+                            <constraint firstItem="xb3-EY-sOm" firstAttribute="top" secondItem="vXj-fL-pAq" secondAttribute="bottom" constant="31" id="Wmj-22-0Ip"/>
+                            <constraint firstItem="tbM-fN-aPF" firstAttribute="top" secondItem="fA7-Hb-quc" secondAttribute="bottom" constant="80" id="Zd7-tz-4W1"/>
+                            <constraint firstItem="vXj-fL-pAq" firstAttribute="leading" secondItem="Hix-7q-oaj" secondAttribute="leadingMargin" constant="30" id="Zv6-rB-Nv2"/>
+                            <constraint firstItem="faS-TE-hbr" firstAttribute="centerX" secondItem="tbM-fN-aPF" secondAttribute="centerX" id="l4K-Jr-nsN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="downloadLabel" destination="faS-TE-hbr" id="n8u-rR-g8n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zFb-ZE-j86" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1027" y="282"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="button.jpg" width="303" height="87"/>
+    </resources>
 </document>
