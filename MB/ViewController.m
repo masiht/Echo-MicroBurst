@@ -9,17 +9,19 @@
 #import "ViewController.h"
 
 #define serverIP @"108.229.9.53"
-#define serverCtrlPort 62122
-#define serverUploadPort 62123
-
+#define serverDownloadPort 62121
+#define serverCtrlPort     62122
+#define serverUploadPort   62123
 
 @interface ViewController () {
     
     GCDAsyncSocket *socketCtrl;
     GCDAsyncUdpSocket *socketUpload;
+    GCDAsyncUdpSocket *socketDownload;
 
     int numberOfTestPackets;
     int sizeOfTestPackets;
+    int numberOfReceivedPackets;
     BOOL isWaitingForResults;
     
     testType currentTest;
@@ -38,11 +40,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     isWaitingForResults = NO;
-    currentTest = testTypeUpload;
+    currentTest = testTypeDownload;
     
     if (currentTest == testTypeUpload) {
         [self setupUploadTest];
         [self setupControlConnection];
+    }
+    
+    if (currentTest == testTypeDownload) {
+        [self setupDownloadTest];
     }
     
 }
@@ -51,6 +57,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Upload related Methods
 
 -(void)setupControlConnection {
     socketCtrl = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -61,23 +69,6 @@
 
 -(void)setupUploadTest {
     socketUpload = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    
-}
-
--(NSData *)makeControlPacketWithNumberOfPackets:(int)numberOfPackets packetSize:(int)size {
-    
-    numberOfTestPackets = numberOfPackets;
-    sizeOfTestPackets = size;
-    
-    if (currentTest == testTypeUpload) {
-        return [[NSString stringWithFormat:@"0:1:%i:%i:%@", numberOfPackets, size, [socketCtrl localHost]] dataUsingEncoding:NSUTF8StringEncoding];
-    }
-    
-    else if (currentTest == testTypeDownload) {
-        return [[NSString stringWithFormat:@"0:0:%i:%i:%@", numberOfPackets, size, [socketCtrl localHost]] dataUsingEncoding:NSUTF8StringEncoding];
-    }
-    
-    return nil;
     
 }
 
@@ -96,6 +87,38 @@
     }
     
     return dataPacket;
+}
+
+
+-(NSData *)makeControlPacketWithNumberOfPackets:(int)numberOfPackets packetSize:(int)size {
+    
+    numberOfTestPackets = numberOfPackets;
+    sizeOfTestPackets = size;
+    
+    if (currentTest == testTypeUpload) {
+        return [[NSString stringWithFormat:@"0:1:%i:%i:%@", numberOfPackets, size, [socketCtrl localHost]] dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    else if (currentTest == testTypeDownload) {
+        return [[NSString stringWithFormat:@"0:0:%i:%i:%@", numberOfPackets, size, [socketCtrl localHost]] dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    return nil;
+}
+
+#pragma mark - Download related Methods
+
+-(void)setupDownloadTest {
+    
+    NSLog(@"Start Download Test");
+    socketDownload = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    recvTimeStamps = [[NSMutableArray alloc] init];
+    NSError *err;
+    
+    [socketDownload bindToPort:serverDownloadPort error:&err];
+    [socketDownload beginReceiving:&err];
+    [socketDownload sendData:[self makeControlPacketWithNumberOfPackets:10 packetSize:1024] toHost:serverIP port:serverDownloadPort withTimeout:-1 tag:0];
+    numberOfReceivedPackets = 0;
 }
 
 #pragma mark - TCP socket
@@ -147,13 +170,23 @@
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContext {
     
-    double interval = [startTime timeIntervalSinceNow];
-    NSString *readData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"UDP data read = %@", readData);
-    NSLog(@"UDP recv time stamp = %f", interval);
+    numberOfReceivedPackets ++;
+    if (numberOfReceivedPackets == 1) {
+        startTime = [NSDate date];
+    }
+    if (numberOfReceivedPackets == numberOfTestPackets) {
+        
+        double interval  = [[NSDate date] timeIntervalSinceDate:startTime];
+        double speed = ((numberOfTestPackets - 1) * sizeOfTestPackets)/ interval;
+        
+        
+        NSLog(@"received all download packets in %f seconds", interval);
+        NSLog(@"download speed test result = %.2f KB/s, or %.2f MB/s", speed / 1000.0, speed / 1000000.0);
+        
+    }
     
-    [recvData addObject:readData];
-    [recvTimeStamps addObject:[NSNumber numberWithDouble:interval]];
+    /*NSString *readData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"UDP data read = %@", readData);*/
 }
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag {
