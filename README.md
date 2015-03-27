@@ -1,14 +1,13 @@
-# Echo-MoblieBurst
-A Speedometer using Echo server
+AT&T Echo Microburst project
+=============================
 
-====================AT&T Echo Microburst project====================
-# Echo Microburst Test is a combination of Upload and Download tests. It performs upload/download tests with a delay as configured.
-# EMB Upload Server listens for packets on 2 different Ports. Each of the two ports is used for different purpose:
+The Echo Microburst is a speedometer using AT&T Echo server. The tests are a combination of Upload and Download. It performs upload/download tests with a delay as configured.
 
-	Control Port (TCP): Control Port is used to establish a control channel between Client and Server using TCP protocol. 
-	Server listens for TCP connections from clients who wish to perform a test.
+The EMB Server listens for packets on 2 different Ports. Each of the two ports is used for different purpose:
 
-	Data Port (UDP): Server listens for Upload Burst packets on UDP Data Port. Server sends Upload Speed Information back to Client on TCP control port.
+* Control Port (TCP): Control Port is used to establish a control channel between Client and Server using TCP protocol. Server listens for TCP connections from clients who wish to perform a test.
+
+* Data Port (UDP): Server listens for Upload Burst packets on UDP Data Port. Server sends Upload Speed Information back to Client on TCP control port.
 
 # Upload Test: 
 In order to initiate an Upload test, Client should send a control packet to server on Control Port using TCP connection. 
